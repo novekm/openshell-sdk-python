@@ -85,6 +85,15 @@ exclude = ["src/openshell/_proto"]
 [tool.ty.src]
 exclude = ["src/openshell/_proto"]
 
+# These mock-RPC tests build fakes whose attributes start as None and pass
+# keyword dictionaries to constructors; ty cannot follow either.
+[[tool.ty.overrides]]
+include = ["tests/provider_bootstrap_test.py", "tests/provider_bootstrap_profile_test.py"]
+
+[tool.ty.overrides.rules]
+unresolved-attribute = "ignore"
+invalid-argument-type = "ignore"
+
 [tool.ruff.lint]
 select = [
     "E",   # pycodestyle errors
